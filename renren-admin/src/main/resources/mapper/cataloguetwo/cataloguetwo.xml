@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.cataloguetwo.dao.CataloguetwoDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.cataloguetwo.entity.CataloguetwoEntity" id="cataloguetwoMap">
+        <result property="cataloguetwo_id" column="cataloguetwo_id"/>
+        <result property="cataloguetwo_name" column="cataloguetwo_name"/>
+        <result property="catalogueone_id" column="catalogueone_id"/>
+
+
+    </resultMap>
+    <select id="delete_by_cataloguetwo_id" resultType="io.renren.modules.cataloguetwo.dao.CataloguetwoDao">
+    delete from cataloguetwo where  cataloguetwo_id=#{cataloguetwo_id}
+</select>
+    <select id="update_by_cataloguetwo_id" resultType="io.renren.modules.cataloguetwo.dao.CataloguetwoDao">
+    update cataloguetwo set cataloguetwo_name=#{cataloguetwo_name} where cataloguetwo_id=#{cataloguetwo_id}
+</select>
+</mapper>

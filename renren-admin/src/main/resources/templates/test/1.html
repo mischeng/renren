@@ -1,0 +1,45 @@
+<template>
+    <el-upload
+            class="avatar-uploader"
+            :http-request="httpRequest"
+            :action="actionUrl"
+            name='bankimg'
+            :show-file-list="false">
+        <img v-if="ruleForm.bankimg" :src="ruleForm.bankimg" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    </el-upload>
+</template>
+<script>
+    export default {
+        data() {
+            return {
+                actionUrl：''，
+                ruleForm:{
+                    bankimg:'',
+                }
+        }
+            methods: {
+                httpRequest (options) {
+                    let file = options.file
+                    let filename = options.filename
+                    if (file) {
+                        this.fileReader.readAsDataURL(file)
+                    }
+                    this.fileReader.onload = () => {
+                        let base64Str = this.fileReader.result.split(',')[1]
+                        this.$axios.post("/payways/upload",{file:base64Str})
+                            .then(res => {
+                            if(filename=='bankimg'){
+                            this.ruleForm.bankimg= res.data.biz_response.data
+                        }
+                        console.log(res)
+                    })
+                    .catch(err => {
+                            console.log(err)
+                    })
+
+                    }
+                },
+            }
+        }
+</script>
